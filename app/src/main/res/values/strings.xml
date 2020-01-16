@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">GitProject</string>
+
+
+    <string name="sample_name">Git Clone</string>
+    <string name="sample_username">pintuag</string>
+    <string name="sample_user_profile_url">https://github.com/pintuag</string>
+    <string name="data_not_found">Data Not Found</string>
+
+    <string name="user_profile_text_url">User Profile Url</string>
+    <string name="project_name">Project Name</string>
+    <string name="project_url">Project Url</string>
+
 </resources>
