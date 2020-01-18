@@ -26,5 +26,9 @@ class TrendingListViewModel(application: Application, val dataRepository: DataRe
         })
     }
 
+    override fun onCleared() {
+        super.onCleared()
+
+    }
 
 }

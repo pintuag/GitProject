@@ -26,17 +26,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     public fun AppCompatActivity.addFragment(fragment: Fragment, backstack: String) {
         supportFragmentManager.beginTransaction()
-            .add(R.id.mainContainer, fragment, fragment::class.java.simpleName)
-            .addToBackStack(backstack).commit()
-    }
-
-    public fun AppCompatActivity.replaceFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .add(R.id.mainContainer, fragment, fragment::class.java.simpleName).commit()
-    }
-
-    fun AppCompatActivity.replaceFragment(fragment: Fragment, backstack: String) {
-        supportFragmentManager.beginTransaction()
+            .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
             .add(R.id.mainContainer, fragment, fragment::class.java.simpleName)
             .addToBackStack(backstack).commit()
     }
