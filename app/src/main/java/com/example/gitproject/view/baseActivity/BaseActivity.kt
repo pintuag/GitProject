@@ -1,9 +1,11 @@
 package com.example.gitproject.view.baseActivity
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.gitproject.R
+import com.example.gitproject.util.Constants
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -38,4 +40,16 @@ abstract class BaseActivity : AppCompatActivity() {
             .add(R.id.mainContainer, fragment, fragment::class.java.simpleName)
             .addToBackStack(backstack).commit()
     }
+
+
+    override fun onSupportNavigateUp(): Boolean {
+
+        if (Constants.TOOLBAR_BUTTON_CLICK) {
+            onBackPressed()
+        }
+
+        return true
+    }
+
+
 }

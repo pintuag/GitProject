@@ -7,6 +7,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 object ServiceCreator {
     /**
@@ -17,7 +18,11 @@ object ServiceCreator {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
         httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         httpClientBuilder.addInterceptor(httpLoggingInterceptor)
-        val okHttpClient = httpClientBuilder.build()
+        val okHttpClient = httpClientBuilder
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
+            .build()
         val retrofitBuilder = Retrofit.Builder()
             .baseUrl(ApiConstants.API_END_POINT)
             .addConverterFactory(GsonConverterFactory.create())

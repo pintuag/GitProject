@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
+import com.example.gitproject.R
 import com.example.gitproject.models.repository.ViewModelFactory
+import com.example.gitproject.util.Constants
 import com.example.gitproject.view.baseActivity.BaseActivity
 
 abstract class BaseFragment : Fragment() {
@@ -36,21 +39,19 @@ abstract class BaseFragment : Fragment() {
         return ViewModelProviders.of(this, factory).get(java)
     }
 
-    public fun addFragment(fragment: Fragment) {
-        (activity as BaseActivity).apply { addFragment(fragment) }
-    }
-
     public fun addFragment(fragment: Fragment, backstack: String) {
         (activity as BaseActivity).apply { addFragment(fragment, backstack) }
     }
 
-    public fun replaceFragment(fragment: Fragment, backstack: String) {
-        (activity as BaseActivity).apply { replaceFragment(fragment, backstack) }
+
+    fun showToolbarBackButton() {
+        Constants.TOOLBAR_BUTTON_CLICK = true
+        (activity as AppCompatActivity).supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp);
     }
 
-    public fun replaceFragment(fragment: Fragment) {
-        (activity as BaseActivity).apply { replaceFragment(fragment) }
+    fun hideToolbarBackButton() {
+        Constants.TOOLBAR_BUTTON_CLICK = false
+        (activity as AppCompatActivity).supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_github);
     }
-
 
 }

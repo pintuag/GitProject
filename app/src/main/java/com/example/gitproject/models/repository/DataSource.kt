@@ -12,10 +12,13 @@ import java.io.IOException
 object DataSource : DataSourceCalls {
 
 
-    override fun trendingDataList(responseHandler: ResponseHandler<Result<List<TrendingListModel>>>) {
+    override fun trendingDataList(
+        params: HashMap<String, String>,
+        responseHandler: ResponseHandler<Result<List<TrendingListModel>>>
+    ) {
         responseHandler.response(Result.Loading)
         val service = ServiceCreator.createService()
-        val call = service.getGithubTrendingList()
+        val call = service.getGithubTrendingList(params)
         call.enqueue(object : Callback<List<TrendingListModel>> {
             override fun onFailure(call: Call<List<TrendingListModel>>, t: Throwable) {
                 t.printStackTrace()

@@ -17,8 +17,8 @@ class TrendingListViewModel(application: Application, val dataRepository: DataRe
         get() = trendingListMutableLiveData
 
 
-    fun trendingListApiCall() {
-        dataRepository.getTrendingDataList(object :
+    fun trendingListApiCall(params: HashMap<String, String>) {
+        dataRepository.getTrendingDataList(params, object :
             ResponseHandler<Result<List<TrendingListModel>>> {
             override fun response(response: Result<List<TrendingListModel>>) {
                 trendingListMutableLiveData.value = response

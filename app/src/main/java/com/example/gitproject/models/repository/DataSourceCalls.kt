@@ -6,6 +6,9 @@ import com.example.gitproject.models.httpService.Result
 
 interface DataSourceCalls {
 
-    fun trendingDataList(responseHandler: ResponseHandler<Result<List<TrendingListModel>>>)
+    fun trendingDataList(
+        params: HashMap<String, String>,
+        responseHandler: ResponseHandler<Result<List<TrendingListModel>>>
+    )
 
 }

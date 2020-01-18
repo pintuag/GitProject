@@ -1,90 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/detailCardView"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        app:cardCornerRadius="8dp"
-        app:contentPadding="8dp"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/detailCardView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="8dp"
+            app:contentPadding="8dp"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/userProfile"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:src="@drawable/ic_github"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/repoName"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/repoName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="@string/sample_name"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-                app:layout_constraintBottom_toTopOf="@id/username"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/userProfile"
-                app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/userProfile"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:src="@drawable/ic_github"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/repoName"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-
-            <TextView
-                android:id="@+id/username"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="@string/sample_username"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                android:textColor="@color/grey_path4"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/repoName"
-                app:layout_constraintTop_toBottomOf="@id/repoName" />
+                <TextView
+                    android:id="@+id/repoName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/sample_name"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                    app:layout_constraintBottom_toTopOf="@id/username"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/userProfile"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/username"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/sample_username"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textColor="@color/grey_path4"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/repoName"
+                    app:layout_constraintTop_toBottomOf="@id/repoName" />
 
 
-    </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <TextView
-        android:id="@+id/userProfileUrlText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/user_profile_text_url"
-        app:layout_constraintTop_toBottomOf="@id/detailCardView"
-        android:textColor="@color/grey_path"
-        android:padding="8dp"
-        android:layout_margin="8dp"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+        </androidx.cardview.widget.CardView>
 
 
-    <TextView
-        android:id="@+id/userProfileUrl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/sample_user_profile_url"
-        app:layout_constraintTop_toBottomOf="@id/userProfileUrlText"
-        android:textColor="@color/colorPrimary"
-        android:padding="8dp"
-        android:layout_margin="8dp"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+        <TextView
+            android:id="@+id/userProfileUrlText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:padding="8dp"
+            android:text="@string/user_profile_text_url"
+            android:textColor="@color/grey_path"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@id/detailCardView" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/userProfileUrl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:autoLink="web"
+            android:linksClickable="true"
+            android:textColorLink="@color/colorPrimary"
+            android:text="@string/sample_user_profile_url"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintTop_toBottomOf="@id/userProfileUrlText" />
+
+
+        <TextView
+            android:id="@+id/projectNameText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:padding="8dp"
+            android:text="@string/project_name"
+            android:textColor="@color/grey_path"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@id/userProfileUrl" />
+
+
+        <TextView
+            android:id="@+id/projectName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="@string/project_name"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textColor="@color/grey_path4"
+            app:layout_constraintTop_toBottomOf="@id/projectNameText" />
+
+
+        <TextView
+            android:id="@+id/projectDetailsText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:padding="8dp"
+            android:text="@string/project_description"
+            android:textColor="@color/grey_path"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@id/projectName" />
+
+
+        <TextView
+            android:id="@+id/projectDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="@string/project_name"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textColor="@color/grey_path4"
+            app:layout_constraintTop_toBottomOf="@id/projectDetailsText" />
+
+
+        <TextView
+            android:id="@+id/repoUrlText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:padding="8dp"
+            android:text="@string/project_url"
+            android:textColor="@color/grey_path"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@id/projectDetails" />
+
+
+        <TextView
+            android:id="@+id/repoUrl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="@string/sample_user_profile_url"
+            android:autoLink="web"
+            android:linksClickable="true"
+            android:textColorLink="@color/colorPrimary"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintTop_toBottomOf="@id/repoUrlText" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.core.widget.NestedScrollView>

@@ -1,6 +1,8 @@
 package com.example.gitproject.view.fragments
 
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.lifecycle.Observer
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.gitproject.R
@@ -13,19 +15,16 @@ import com.example.gitproject.models.httpService.Result
 import com.example.gitproject.util.toast
 import kotlinx.android.synthetic.main.no_record_found.*
 import kotlinx.android.synthetic.main.progress_bar.*
+import kotlin.collections.HashMap
 
 class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
     lateinit var trendingListViewModel: TrendingListViewModel
     lateinit var itemClickListener: TrendingListAdapter.ItemClickListener
 
-    override fun onRefresh() {
-        if (swipeRefresh.isRefreshing) {
-            swipeRefresh.isRefreshing = false
-        }
-    }
 
     val trendingListAdapter = TrendingListAdapter()
+    var selectedPosition = 0
 
     override fun getLayoutId() = R.layout.home_fragment
 
@@ -34,7 +33,36 @@ class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
         setRecyclerView()
         setSwipeRefreshLayout()
         initViewModels()
+        setSpinnerLayouts()
         callGitHubListApi()
+    }
+
+    private fun setSpinnerLayouts() {
+
+        val listOfLanguages = listOf<String>(*resources.getStringArray(R.array.languages))
+        val insuranceAdapter =
+            ArrayAdapter<String>(activity!!, R.layout.spinner_text_view_layout, listOfLanguages)
+        languageSpinner.adapter = insuranceAdapter
+        languageSpinner.setSelection(selectedPosition)
+        languageSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+
+                if (position != selectedPosition) {
+                    selectedPosition = position
+                    callGitHubListApi()
+                }
+
+            }
+        }
     }
 
 
@@ -43,8 +71,9 @@ class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
         trendingListRecyclerView.adapter = trendingListAdapter
 
         itemClickListener = object : TrendingListAdapter.ItemClickListener {
-            override fun itemClick(position: Int) {
-
+            override fun itemClick(trendingListModel: TrendingListModel) {
+                RepoDetailsFragment.getRepoDetailsInstance(trendingListModel)
+                addFragment(RepoDetailsFragment(), HomeFragment::class.java.name)
             }
         }
 
@@ -56,6 +85,12 @@ class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
     }
 
+    override fun onRefresh() {
+        callGitHubListApi()
+        if (swipeRefresh.isRefreshing) {
+            swipeRefresh.isRefreshing = false
+        }
+    }
 
     private fun initViewModels() {
 
@@ -91,7 +126,13 @@ class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
 
     private fun callGitHubListApi() {
-        trendingListViewModel.trendingListApiCall()
+
+        val params = HashMap<String, String>()
+        params.apply {
+            put("language", languageSpinner.selectedItem.toString())
+            put("since", "weekly")
+        }
+        trendingListViewModel.trendingListApiCall(params)
     }
 
 
