@@ -1,13 +1,14 @@
 package com.example.gitproject.view.fragments
 
-import com.bumptech.glide.Glide
 import com.example.gitproject.R
 import com.example.gitproject.models.dataModel.TrendingListModel
+import com.example.gitproject.util.ImageLoader
 import com.example.gitproject.view.baseFragment.BaseFragment
 import kotlinx.android.synthetic.main.repo_details_fragment.*
 
 class RepoDetailsFragment : BaseFragment() {
 
+    lateinit var imageLoader: ImageLoader
 
     companion object {
         lateinit var trendingListModel: TrendingListModel
@@ -26,13 +27,11 @@ class RepoDetailsFragment : BaseFragment() {
 
     private fun setRepoDetails() {
 
+        imageLoader = ImageLoader(activity!!)
         username.text = trendingListModel.username
         repoName.text = trendingListModel.name
-        Glide.with(activity!!)
-            .load(trendingListModel.avatar)
-            .thumbnail(0.8f)
-            .into(userProfile)
 
+        imageLoader.DisplayImage(trendingListModel.avatar, R.drawable.placeholder, userProfile)
         userProfileUrl.text = trendingListModel.url
         projectName.text = trendingListModel.repo.name
         projectDetails.text = trendingListModel.repo.description

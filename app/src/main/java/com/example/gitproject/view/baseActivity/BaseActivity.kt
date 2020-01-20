@@ -1,11 +1,17 @@
 package com.example.gitproject.view.baseActivity
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.gitproject.R
 import com.example.gitproject.util.Constants
+import com.example.gitproject.view.fragments.HomeFragment
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -18,6 +24,44 @@ abstract class BaseActivity : AppCompatActivity() {
     abstract fun getLayoutId(): Int
     abstract fun init()
 
+    fun requestNeededPermissions() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                Constants.MY_STORAGE_PERMISSIONS_REQUEST
+            )
+        } else {
+            addFragment(HomeFragment())
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>, grantResults: IntArray
+    ) {
+        when (requestCode) {
+            Constants.MY_STORAGE_PERMISSIONS_REQUEST -> {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.isNotEmpty() && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(
+                        this,
+                        "Please provide necessary permissions to use the app.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    requestNeededPermissions()
+                } else {
+                    addFragment(HomeFragment())
+                }
+                return
+            }
+        }
+    }
 
     public fun AppCompatActivity.addFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()

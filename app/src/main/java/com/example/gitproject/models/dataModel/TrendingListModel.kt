@@ -1,5 +1,6 @@
 package com.example.gitproject.models.dataModel
 
+import android.graphics.Bitmap
 import com.google.gson.annotations.SerializedName
 
 data class TrendingListModel(
@@ -15,4 +16,9 @@ data class Repo(
     @SerializedName("description") val description: String,
     @SerializedName("name") val name: String,
     @SerializedName("url") val url: String
+)
+
+
+data class BitmapModel(
+    val bitmap: Bitmap?
 )

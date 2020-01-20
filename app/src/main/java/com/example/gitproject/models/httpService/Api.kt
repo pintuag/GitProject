@@ -1,9 +1,9 @@
 package com.example.gitproject.models.httpService
 
+import com.example.gitproject.models.dataModel.BitmapModel
 import com.example.gitproject.models.dataModel.TrendingListModel
 import com.example.gitproject.util.ApiConstants
 import io.reactivex.Observable
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.QueryMap
 

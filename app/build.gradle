@@ -68,9 +68,6 @@ dependencies {
     // timber library for logs
     implementation "com.jakewharton.timber:timber:$timber_version"
 
-    implementation "com.github.bumptech.glide:glide:$glide_version"
-    kapt "com.github.bumptech.glide:compiler:$glide_version"
-
 
     // rxJava Library
     implementation "io.reactivex.rxjava3:rxjava:$rxJava_version"

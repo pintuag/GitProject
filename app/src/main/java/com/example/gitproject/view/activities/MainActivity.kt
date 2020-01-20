@@ -11,7 +11,7 @@ class MainActivity : BaseActivity() {
 
     override fun init() {
         setToolbar()
-        addFragment(HomeFragment())
+        requestNeededPermissions()
     }
 
     private fun setToolbar() {
