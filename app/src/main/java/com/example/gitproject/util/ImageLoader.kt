@@ -55,7 +55,7 @@ class ImageLoader(context: Context?) {
                 conn.instanceFollowRedirects = true
                 val `is` = conn.inputStream
                 val os: OutputStream = FileOutputStream(f)
-                Utils.CopyStream(`is`, os)
+                Utils.copyStream(`is`, os)
                 os.close()
                 bitmap = decodeFile(f)
                 bitmap

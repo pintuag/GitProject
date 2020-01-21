@@ -15,6 +15,9 @@ import java.io.IOException
 object DataSource : DataSourceCalls {
 
 
+    /*
+    * this method is for calling the network api and set data in live data observer
+    * */
     override fun trendingDataList(
         params: HashMap<String, String>,
         responseHandler: ResponseHandler<Result<List<TrendingListModel>>>
@@ -35,12 +38,9 @@ object DataSource : DataSourceCalls {
     }
 
 
-    fun bitmapObserver(): Bitmap? {
-
-        return null
-    }
-
-
+    /*
+    * Different type of exception handling
+    * */
     fun exceptionErrors(throwable: Throwable): String {
         if (throwable is IOException) {
             // A network or conversion error happened

@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
 
 object ServiceCreator {
     /**
-     * This function will return the service class for ApiServiceCreator
+     * This function will return the service class for ApiService
      */
     private fun <S> createService(serviceClass: Class<S>): S {
         val httpClientBuilder = OkHttpClient.Builder()

@@ -34,6 +34,9 @@ abstract class BaseFragment : Fragment() {
     abstract fun init()
 
 
+    /*
+    * Initialize view model
+    * */
     fun <T : ViewModel> getViewModelInstance(java: Class<T>): T {
         val factory = ViewModelFactory.getInstance(activity!!.application)
         return ViewModelProviders.of(this, factory).get(java)

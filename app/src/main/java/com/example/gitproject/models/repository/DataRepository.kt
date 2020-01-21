@@ -6,6 +6,7 @@ import com.example.gitproject.models.httpService.Result
 
 class DataRepository(val dataSource: DataSource) {
 
+
     fun getTrendingDataList(
         params: HashMap<String, String>,
         responseHandler: ResponseHandler<Result<List<TrendingListModel>>>

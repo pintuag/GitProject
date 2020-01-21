@@ -4,7 +4,7 @@ import java.io.InputStream
 import java.io.OutputStream
 
 object Utils {
-    fun CopyStream(inputStream: InputStream, os: OutputStream) {
+    fun copyStream(inputStream: InputStream, os: OutputStream) {
         val bufferSize = 1024
         try {
             val bytes = ByteArray(bufferSize)
