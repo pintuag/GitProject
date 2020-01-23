@@ -1,5 +1,6 @@
 package com.example.gitproject.models.repository
 
+import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import com.example.gitproject.models.dataModel.BitmapModel
 import com.example.gitproject.models.dataModel.TrendingListModel
@@ -18,6 +19,7 @@ object DataSource : DataSourceCalls {
     /*
     * this method is for calling the network api and set data in live data observer
     * */
+    @SuppressLint("CheckResult")
     override fun trendingDataList(
         params: HashMap<String, String>,
         responseHandler: ResponseHandler<Result<List<TrendingListModel>>>

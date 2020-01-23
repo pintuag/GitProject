@@ -1,11 +1,18 @@
 package com.example.gitproject.util
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.util.Log
 import android.widget.ImageView
 import com.example.gitproject.R
+import io.reactivex.Observable
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
@@ -37,7 +44,7 @@ class ImageLoader(context: Context?) {
 
     private fun queuePhoto(url: String, imageView: ImageView) {
         val p = PhotoToLoad(url, imageView)
-        executorService.submit(PhotosLoader(p))
+        hello(p)
     }
 
     private fun getBitmap(url: String): Bitmap? {
@@ -95,35 +102,43 @@ class ImageLoader(context: Context?) {
     //Task for the queue
     inner class PhotoToLoad(var url: String, var imageView: ImageView)
 
-    internal inner class PhotosLoader(var photoToLoad: PhotoToLoad) : Runnable {
-        override fun run() {
-            if (imageViewReused(photoToLoad)) return
-            val bmp = getBitmap(photoToLoad.url)
-            memoryCache.put(photoToLoad.url, bmp!!)
-            if (imageViewReused(photoToLoad)) return
-            val bd = BitmapDisplayer(bmp, photoToLoad)
-            val a = photoToLoad.imageView.context as Activity
-            a.runOnUiThread(bd)
-        }
-
+    @SuppressLint("CheckResult")
+    fun hello(photoToLoad: PhotoToLoad) {
+        Log.e("HelloCalled", "In")
+        Observable.just(photoToLoad)
+            .map {
+                Log.e("INMApObserver", "In")
+                if (imageViewReused(photoToLoad)) return@map null
+                val bmp = getBitmap(photoToLoad.url)
+                memoryCache.put(photoToLoad.url, bmp!!)
+                return@map bmp
+            }.subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    if (imageViewReused(photoToLoad)) return@subscribe
+                    if (it != null) {
+                        Log.e("InSubscribeObserver", "IFFFF")
+                        photoToLoad.imageView.setImageBitmap(it)
+                    } else {
+                        Log.e("InSubscribeObserver", "ELSE")
+                        photoToLoad.imageView.setImageResource(
+                            stub_id
+                        )
+                    }
+                }, {
+                    Log.e("InErrorStack", "ELSE")
+                    it.printStackTrace()
+                }, {}
+            )
     }
+
 
     fun imageViewReused(photoToLoad: PhotoToLoad): Boolean {
         val tag = imageViews[photoToLoad.imageView]
         return tag == null || tag != photoToLoad.url
     }
 
-    //Used to display bitmap in the UI thread
-    internal inner class BitmapDisplayer(var bitmap: Bitmap?, var photoToLoad: PhotoToLoad) :
-        Runnable {
-        override fun run() {
-            if (imageViewReused(photoToLoad)) return
-            if (bitmap != null) photoToLoad.imageView.setImageBitmap(bitmap) else photoToLoad.imageView.setImageResource(
-                stub_id
-            )
-        }
-
-    }
 
     fun clearCache() {
         memoryCache.clear()
